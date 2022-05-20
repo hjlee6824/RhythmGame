@@ -12,14 +12,21 @@ public class Note : MonoBehaviour
     // 판정선 위치
     public float judgementLinePos;
 
+    // 판정선 아래로 내려간 노트의 파괴 위치
+    // public float destroyPos = -6f;
+
+    // 노트의 시간값
+    public float timing;
+
     // 노트의 시간값을 박자 단위로 변환한 값
     public float beat;
 
-    public void Initialize(Conductor conductor, float xPos, float startYPos, float endYPos, float beat)
+    public void Initialize(Conductor conductor, float xPos, float startYPos, float endYPos, float timing, float beat)
     {
         this.conductor = conductor;
         this.spawnPos = startYPos;
         this.judgementLinePos = endYPos;
+        this.timing = timing;
         this.beat = beat;
 
         transform.position = new Vector2(xPos, spawnPos);
@@ -47,10 +54,9 @@ public class Note : MonoBehaviour
             spawnPos + (judgementLinePos - spawnPos) * 
             (1f - (beat - conductor.songPosition / conductor.secondsPerBeat) / conductor.beatsShownOnScreen));
 
-        if (transform.position.y <= judgementLinePos)
+        /*if (transform.position.y <= destroyPos)
         {
-            conductor.hitSoundPlayer.PlayOneShot(conductor.hitSound);
             ObjectPool.ReturnObject(this);
-        }
+        }*/
     }
 }

@@ -34,9 +34,11 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
+    // 오브젝트 풀에서 오브젝트를 가지고 오며, 만약 가져올 오브젝트가 없다면 새로 생성
     public static Note GetObject()
     {
         GameObject notesOnActive = GameObject.Find("NotesOnActive");
+
         if(Instance.poolingObjectQueue.Count > 0)
         {
             Note note = Instance.poolingObjectQueue.Dequeue();
@@ -53,6 +55,7 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
+    // 사용이 끝난 오브젝트를 오브젝트 풀에 반납
     public static void ReturnObject(Note note)
     {
         note.gameObject.SetActive(false);
