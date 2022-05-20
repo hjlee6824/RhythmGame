@@ -28,46 +28,46 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             key1.gameObject.SetActive(true);
             judgement.GetDiffTime(1);
         }
 
-        if (Input.GetKeyUp(KeyCode.D))
+        if (Input.GetKeyUp(KeyCode.Q))
         {
             key1.gameObject.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             key2.gameObject.SetActive(true);
             judgement.GetDiffTime(2);
         }
 
-        if (Input.GetKeyUp(KeyCode.F))
+        if (Input.GetKeyUp(KeyCode.W))
         {
             key2.gameObject.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             key3.gameObject.SetActive(true);
             judgement.GetDiffTime(3);
         }
 
-        if (Input.GetKeyUp(KeyCode.J))
+        if (Input.GetKeyUp(KeyCode.O))
         {
             key3.gameObject.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             key4.gameObject.SetActive(true);
             judgement.GetDiffTime(4);
         }
 
-        if (Input.GetKeyUp(KeyCode.K))
+        if (Input.GetKeyUp(KeyCode.P))
         {
             key4.gameObject.SetActive(false);
         }

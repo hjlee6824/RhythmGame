@@ -5,6 +5,7 @@ using UnityEngine;
 public class Judgement : MonoBehaviour
 {
     Conductor conductor;
+    ScoreManager scoreManager;
     
     Queue<Note> judgeTrack1 = new Queue<Note>();
     Queue<Note> judgeTrack2 = new Queue<Note>();
@@ -24,19 +25,73 @@ public class Judgement : MonoBehaviour
     float goodTiming = 103.5f;
     float badTiming = 127.5f;
 
+    bool isAutoPlay = false;
+
     void Start()
     {
         conductor = FindObjectOfType<Conductor>().GetComponent<Conductor>();
+        scoreManager = FindObjectOfType<ScoreManager>().GetComponent<ScoreManager>();
     }
 
     // 키를 입력하지 않고 노트가 판정선 아래로 내려갔을 때 미스 처리
     void Update()
     {
+        if (isAutoPlay)
+        {
+            float diffTime;
+            
+            if (judgeTrack1.Count > 0)
+            {
+                diffTime = judgeTrack1.Peek().timing - conductor.songPosition * 1000;
+
+                if (diffTime < 0)
+                {
+                    JudgeTiming(1, diffTime);
+                }
+            }
+
+            
+            if (judgeTrack2.Count > 0)
+            {
+                diffTime = judgeTrack2.Peek().timing - conductor.songPosition * 1000;
+
+                if (diffTime < 0)
+                {
+                    JudgeTiming(2, diffTime);
+                }
+            }
+            
+            if (judgeTrack3.Count > 0)
+            {
+                diffTime = judgeTrack3.Peek().timing - conductor.songPosition * 1000;
+
+                if (diffTime < 0)
+                {
+                    JudgeTiming(3, diffTime);
+                }
+            }
+            
+            if (judgeTrack4.Count > 0)
+            {
+                diffTime = judgeTrack4.Peek().timing - conductor.songPosition * 1000;
+
+                if (diffTime < 0)
+                {
+                    JudgeTiming(4, diffTime);
+                }
+            }
+        }
+
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.A))
+        {
+            isAutoPlay = !isAutoPlay;
+        }
+
         if (judgeTrack1.Count > 0)
         {
             if (judgeTrack1.Peek().transform.position.y < -6f)
             {
-                Debug.Log("Miss");
+                scoreManager.AddCount(0);
                 ObjectPool.ReturnObject(judgeTrack1.Dequeue());
             }
         }
@@ -45,7 +100,7 @@ public class Judgement : MonoBehaviour
         {
             if (judgeTrack2.Peek().transform.position.y < -6f)
             {
-                Debug.Log("Miss");
+                scoreManager.AddCount(0);
                 ObjectPool.ReturnObject(judgeTrack2.Dequeue());
             }
         }
@@ -54,7 +109,7 @@ public class Judgement : MonoBehaviour
         {
             if (judgeTrack3.Peek().transform.position.y < -6f)
             {
-                Debug.Log("Miss");
+                scoreManager.AddCount(0);
                 ObjectPool.ReturnObject(judgeTrack3.Dequeue());
             }
         }
@@ -63,7 +118,7 @@ public class Judgement : MonoBehaviour
         {
             if (judgeTrack4.Peek().transform.position.y < -6f)
             {
-                Debug.Log("Miss");
+                scoreManager.AddCount(0);
                 ObjectPool.ReturnObject(judgeTrack4.Dequeue());
             }
         }
@@ -141,37 +196,37 @@ public class Judgement : MonoBehaviour
     {
         if (diffTime < maxTiming)
         {
-            Debug.Log("MAX");
+            scoreManager.AddCount(5);
             DequeueNote(trackNum);
             conductor.hitSoundPlayer.PlayOneShot(conductor.hitSound);
         }
         else if (diffTime < perfectTiming)
         {
-            Debug.Log("Perfect");
+            scoreManager.AddCount(4);
             DequeueNote(trackNum);
             conductor.hitSoundPlayer.PlayOneShot(conductor.hitSound);
         }
         else if (diffTime < greatTiming)
         {
-            Debug.Log("Great");
+            scoreManager.AddCount(3);
             DequeueNote(trackNum);
             conductor.hitSoundPlayer.PlayOneShot(conductor.hitSound);
         }
         else if (diffTime < goodTiming)
         {
-            Debug.Log("Good");
+            scoreManager.AddCount(2);
             DequeueNote(trackNum);
             conductor.hitSoundPlayer.PlayOneShot(conductor.hitSound);
         }
         else if (diffTime < badTiming)
         {
-            Debug.Log("Bad");
+            scoreManager.AddCount(1);
             DequeueNote(trackNum);
             conductor.hitSoundPlayer.PlayOneShot(conductor.hitSound);
         }
         else if (diffTime < 150f)
         {
-            Debug.Log("Miss");
+            scoreManager.AddCount(0);
             DequeueNote(trackNum);
         }
     }

@@ -40,7 +40,7 @@ public class Conductor : MonoBehaviour
         chart = FindObjectOfType<Chart>().GetComponent<Chart>();
         parser = FindObjectOfType<Parser>().GetComponent<Parser>();
         judgement = FindObjectOfType<Judgement>().GetComponent<Judgement>();
-        beatsShownOnScreen = 2f;
+        beatsShownOnScreen = 3f;
         hitSound = hitSoundPlayer.clip;
     }
 
