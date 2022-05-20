@@ -32,16 +32,7 @@ public class Conductor : MonoBehaviour
     // 노트 생성 지점부터 노트 파괴 지점까지 표시될 수 있는 최대 박자 수 (스크롤 속도)
     public float beatsShownOnScreen;
 
-    // 각 트랙 별로 다음에 생성해야 할 노트의 배열 위치를 기억
-    int trackIndex1 = 0;
-    int trackIndex2 = 0;
-    int trackIndex3 = 0;
-    int trackIndex4 = 0;
-
     bool isSongStarted = false;
-
-    // 오브젝트 풀링을 이용해 최적화할 예정
-    //private Queue<Note> objectPool;
 
     void Start()
     {
@@ -82,55 +73,55 @@ public class Conductor : MonoBehaviour
 
         float noteToSpawn = songPosition / secondsPerBeat + beatsShownOnScreen;
 
-        if (trackIndex1 < chart.track1.Count)
+        if (chart.track1_TimingData.Count > 0)
         {
-            float nextTimeInTrack1 = chart.track1[trackIndex1] / 1000 / secondsPerBeat;
+            float nextTimeInTrack1 = chart.track1_TimingData.Peek() / 1000 / secondsPerBeat;
 
             if (nextTimeInTrack1 < noteToSpawn)
             {
                 Note note = ObjectPool.GetObject();
                 // Note note = ((GameObject)Instantiate(notePrefab, Vector2.zero, Quaternion.identity)).GetComponent<Note>();
                 note.Initialize(this, -1.5f, startYPos, endYPos, nextTimeInTrack1);
-                trackIndex1++;
+                chart.track1_TimingData.Dequeue();
             }
         }
 
-        if (trackIndex2 < chart.track2.Count)
+        if (chart.track2_TimingData.Count > 0)
         {
-            float nextTimeInTrack2 = chart.track2[trackIndex2] / 1000 / secondsPerBeat;
+            float nextTimeInTrack2 = chart.track2_TimingData.Peek() / 1000 / secondsPerBeat;
 
             if (nextTimeInTrack2 < noteToSpawn)
             {
                 Note note = ObjectPool.GetObject();
                 // Note note = ((GameObject)Instantiate(notePrefab, Vector2.zero, Quaternion.identity)).GetComponent<Note>();
                 note.Initialize(this, -0.5f, startYPos, endYPos, nextTimeInTrack2);
-                trackIndex2++;
+                chart.track2_TimingData.Dequeue();
             }
         }
 
-        if (trackIndex3 < chart.track3.Count)
+        if (chart.track3_TimingData.Count > 0)
         {
-            float nextTimeInTrack3 = chart.track3[trackIndex3] / 1000 / secondsPerBeat;
+            float nextTimeInTrack3 = chart.track3_TimingData.Peek() / 1000 / secondsPerBeat;
 
             if (nextTimeInTrack3 < noteToSpawn)
             {
                 Note note = ObjectPool.GetObject();
                 // Note note = ((GameObject)Instantiate(notePrefab, Vector2.zero, Quaternion.identity)).GetComponent<Note>();
                 note.Initialize(this, 0.5f, startYPos, endYPos, nextTimeInTrack3);
-                trackIndex3++;
+                chart.track3_TimingData.Dequeue();
             }
         }
 
-        if (trackIndex4 < chart.track4.Count)
+        if (chart.track4_TimingData.Count > 0)
         {
-            float nextTimeInTrack4 = chart.track4[trackIndex4] / 1000 / secondsPerBeat;
+            float nextTimeInTrack4 = chart.track4_TimingData.Peek() / 1000 / secondsPerBeat;
 
             if (nextTimeInTrack4 < noteToSpawn)
             {
                 Note note = ObjectPool.GetObject();
                 // Note note = ((GameObject)Instantiate(notePrefab, Vector2.zero, Quaternion.identity)).GetComponent<Note>();
                 note.Initialize(this, 1.5f, startYPos, endYPos, nextTimeInTrack4);
-                trackIndex4++;
+                chart.track4_TimingData.Dequeue();
             }
         }
     }

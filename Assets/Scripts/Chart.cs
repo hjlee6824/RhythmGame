@@ -13,28 +13,28 @@ public class Chart : MonoBehaviour
     public string difficulty { get; set; }
 
     // [HitObjects]
-    public List<float> track1;
-    public List<float> track2;
-    public List<float> track3;
-    public List<float> track4;
+    public Queue<float> track1_TimingData = new Queue<float>();
+    public Queue<float> track2_TimingData = new Queue<float>();
+    public Queue<float> track3_TimingData = new Queue<float>();
+    public Queue<float> track4_TimingData = new Queue<float>();
 
     public void SetNote(int trackNum, float noteTime)
     {
         if (trackNum.Equals(1))
         {
-            track1.Add(noteTime);
+            track1_TimingData.Enqueue(noteTime);
         }
         else if (trackNum.Equals(2))
         {
-            track2.Add(noteTime);
+            track2_TimingData.Enqueue(noteTime);
         }
         else if (trackNum.Equals(3))
         {
-            track3.Add(noteTime);
+            track3_TimingData.Enqueue(noteTime);
         }
         else
         {
-            track4.Add(noteTime);
+            track4_TimingData.Enqueue(noteTime);
         }
     }
 

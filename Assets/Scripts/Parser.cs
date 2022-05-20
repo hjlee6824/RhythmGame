@@ -7,7 +7,6 @@ public class Parser : MonoBehaviour
 {
     TextAsset textAsset;
     StringReader strReader;
-    Conductor conductor;
     Chart chart;
 
     string sheetText = "";
@@ -18,7 +17,7 @@ public class Parser : MonoBehaviour
     void Awake()
     {
         chart = FindObjectOfType<Chart>().GetComponent<Chart>();
-        textAsset = Resources.Load("Songs/Fastest Crash/data") as TextAsset;
+        textAsset = Resources.Load("Songs/Blue Zenith/data") as TextAsset;
         strReader = new StringReader(textAsset.text);
 
         ParsingData();
