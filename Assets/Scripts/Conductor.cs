@@ -25,7 +25,7 @@ public class Conductor : MonoBehaviour
     public float secondsPerBeat;
 
     // 특정 노래에는 시작 부분에 약간의 공백이 있기 때문에 노래 위치를 계산할 때 그 공백만큼 빼주어야 함
-    public float songOffset;
+    public float songOffset; // 0.17 내가 게임할 때 쓰는 오프셋
 
     // 노래 재생이 시작된 시점을 저장하여 songPosition을 계산할 때 빼주어야 함
     public float dspTimeSong;

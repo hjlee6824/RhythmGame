@@ -101,7 +101,6 @@ public class ScoreManager : MonoBehaviour
 
         SetCount();
         SetAccuracy();
-        SetCount();
         SetCombo();
         SetMaxCombo();
     }
@@ -122,7 +121,6 @@ public class ScoreManager : MonoBehaviour
         good.text = "Good: " + goodCount.ToString();
         bad.text = "Bad: " + badCount.ToString();
         miss.text = "Miss: " + missCount.ToString();
-        max_combo.text = "Max Combo: " + maxCombo.ToString();
     }
 
     void SetJudge()
@@ -137,9 +135,11 @@ public class ScoreManager : MonoBehaviour
 
     void SetMaxCombo()
     {
-        if (comboCount >= maxCombo)
+        if (comboCount > maxCombo)
         {
             maxCombo = comboCount;
         }
+
+        max_combo.text = "Max Combo: " + maxCombo.ToString();
     }
 }
