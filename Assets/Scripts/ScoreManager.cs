@@ -16,7 +16,7 @@ public class ScoreManager : MonoBehaviour
     int comboCount;
     int maxCombo;
 
-    float accuracy = 0f;
+    float accuracy;
 
     string str;
 
@@ -30,6 +30,7 @@ public class ScoreManager : MonoBehaviour
         maxPerfectCount = 0;
         comboCount = 0;
         maxCombo = 0;
+        accuracy = 0f;
         str = "";
 
         miss.text = str;
@@ -41,6 +42,7 @@ public class ScoreManager : MonoBehaviour
         judge.text = str;
         combo.text = str;
         max_combo.text = str;
+        acc.text = str;
     }
 
     void Update()
@@ -53,14 +55,14 @@ public class ScoreManager : MonoBehaviour
         if(num.Equals(5)) {
             str = "MARVELOUS";
             judge.color = Color.white;
-            SetText();
+            SetJudge();
             maxPerfectCount++;
             comboCount++;
         }
         else if (num.Equals(4)) {
             str = "PERFECT";
             judge.color = Color.yellow;
-            SetText();
+            SetJudge();
             perfectCount++;
             comboCount++;
         }
@@ -68,7 +70,7 @@ public class ScoreManager : MonoBehaviour
         {
             str = "GREAT";
             judge.color = Color.green;
-            SetText();
+            SetJudge();
             greatCount++;
             comboCount++;
         }
@@ -76,7 +78,7 @@ public class ScoreManager : MonoBehaviour
         {
             str = "GOOD";
             judge.color = Color.blue;
-            SetText();
+            SetJudge();
             goodCount++;
             comboCount++;
         }
@@ -84,7 +86,7 @@ public class ScoreManager : MonoBehaviour
         {
             str = "BAD";
             judge.color = Color.magenta;
-            SetText();
+            SetJudge();
             badCount++;
             comboCount++;
         }
@@ -92,13 +94,24 @@ public class ScoreManager : MonoBehaviour
         {
             str = "MISS";
             judge.color = Color.red;
-            SetText();
+            SetJudge();
             missCount++;
             comboCount = 0;
         }
 
         SetCount();
+        SetAccuracy();
+        SetCount();
+        SetCombo();
         SetMaxCombo();
+    }
+
+    void SetAccuracy()
+    {
+        int a = 50 * badCount + 100 * goodCount + 200 * greatCount + 300 * (perfectCount + maxPerfectCount);
+        int b = 300 * (missCount + badCount + goodCount + greatCount + perfectCount + maxPerfectCount);
+        accuracy = (float)a / (float)b * 100f;
+        acc.text = accuracy.ToString("F2") + "%";
     }
 
     void SetCount()
@@ -112,17 +125,21 @@ public class ScoreManager : MonoBehaviour
         max_combo.text = "Max Combo: " + maxCombo.ToString();
     }
 
+    void SetJudge()
+    {
+        judge.text = str;
+    }
+
+    void SetCombo()
+    {
+        combo.text = comboCount.ToString();
+    }
+
     void SetMaxCombo()
     {
         if (comboCount >= maxCombo)
         {
             maxCombo = comboCount;
         }
-    }
-
-    void SetText()
-    {
-        judge.text = str;
-        combo.text = comboCount.ToString();
     }
 }

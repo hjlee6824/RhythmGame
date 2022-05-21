@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Judgement : MonoBehaviour
 {
     Conductor conductor;
     ScoreManager scoreManager;
+    public TextMeshProUGUI autoPlay;
     
     Queue<Note> judgeTrack1 = new Queue<Note>();
     Queue<Note> judgeTrack2 = new Queue<Note>();
@@ -31,6 +33,7 @@ public class Judgement : MonoBehaviour
     {
         conductor = FindObjectOfType<Conductor>().GetComponent<Conductor>();
         scoreManager = FindObjectOfType<ScoreManager>().GetComponent<ScoreManager>();
+        autoPlay.text = "AutoPlay: OFF";
     }
 
     // 키를 입력하지 않고 노트가 판정선 아래로 내려갔을 때 미스 처리
@@ -85,6 +88,15 @@ public class Judgement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.A))
         {
             isAutoPlay = !isAutoPlay;
+            
+            if (isAutoPlay)
+            {
+                autoPlay.text = "AutoPlay: ON";
+            }
+            else
+            {
+                autoPlay.text = "AutoPlay: OFF";
+            }
         }
 
         if (judgeTrack1.Count > 0)

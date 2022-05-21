@@ -40,7 +40,7 @@ public class Conductor : MonoBehaviour
         chart = FindObjectOfType<Chart>().GetComponent<Chart>();
         parser = FindObjectOfType<Parser>().GetComponent<Parser>();
         judgement = FindObjectOfType<Judgement>().GetComponent<Judgement>();
-        beatsShownOnScreen = 3f;
+        beatsShownOnScreen = 1.8f;
         hitSound = hitSoundPlayer.clip;
     }
 
@@ -82,7 +82,7 @@ public class Conductor : MonoBehaviour
             if (nextTimeInTrack1 < noteToSpawn)
             {
                 Note note = ObjectPool.GetObject();
-                note.Initialize(this, -1.5f, startYPos, endYPos, chart.track1_TimingData.Dequeue(), nextTimeInTrack1);
+                note.Initialize(this, -2.25f, startYPos, endYPos, chart.track1_TimingData.Dequeue(), nextTimeInTrack1);
                 judgement.EnqueueNote(1, note);
             }
         }
@@ -94,7 +94,7 @@ public class Conductor : MonoBehaviour
             if (nextTimeInTrack2 < noteToSpawn)
             {
                 Note note = ObjectPool.GetObject();
-                note.Initialize(this, -0.5f, startYPos, endYPos, chart.track2_TimingData.Dequeue(), nextTimeInTrack2);
+                note.Initialize(this, -0.75f, startYPos, endYPos, chart.track2_TimingData.Dequeue(), nextTimeInTrack2);
                 judgement.EnqueueNote(2, note);
             }
         }
@@ -106,7 +106,7 @@ public class Conductor : MonoBehaviour
             if (nextTimeInTrack3 < noteToSpawn)
             {
                 Note note = ObjectPool.GetObject();
-                note.Initialize(this, 0.5f, startYPos, endYPos, chart.track3_TimingData.Dequeue(), nextTimeInTrack3);
+                note.Initialize(this, 0.75f, startYPos, endYPos, chart.track3_TimingData.Dequeue(), nextTimeInTrack3);
                 judgement.EnqueueNote(3, note);
             }
         }
@@ -118,7 +118,7 @@ public class Conductor : MonoBehaviour
             if (nextTimeInTrack4 < noteToSpawn)
             {
                 Note note = ObjectPool.GetObject();
-                note.Initialize(this, 1.5f, startYPos, endYPos, chart.track4_TimingData.Dequeue(), nextTimeInTrack4);
+                note.Initialize(this, 2.25f, startYPos, endYPos, chart.track4_TimingData.Dequeue(), nextTimeInTrack4);
                 judgement.EnqueueNote(4, note);
             }
         }
