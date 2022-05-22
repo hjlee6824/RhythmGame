@@ -17,7 +17,7 @@ public class Parser : MonoBehaviour
     void Awake()
     {
         chart = FindObjectOfType<Chart>().GetComponent<Chart>();
-        textAsset = Resources.Load("Songs/Fastest Crash/data") as TextAsset;
+        textAsset = Resources.Load("Songs/Speedcore 300/data") as TextAsset;
         strReader = new StringReader(textAsset.text);
 
         ParsingData();

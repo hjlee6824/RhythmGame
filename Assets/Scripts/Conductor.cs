@@ -40,7 +40,7 @@ public class Conductor : MonoBehaviour
         chart = FindObjectOfType<Chart>().GetComponent<Chart>();
         parser = FindObjectOfType<Parser>().GetComponent<Parser>();
         judgement = FindObjectOfType<Judgement>().GetComponent<Judgement>();
-        beatsShownOnScreen = 1.8f;
+        beatsShownOnScreen = 2f;
         hitSound = hitSoundPlayer.clip;
     }
 
@@ -63,8 +63,9 @@ public class Conductor : MonoBehaviour
             if (!isSongStarted)
             {
                 isSongStarted = true;
-                dspTimeSong = (float)AudioSettings.dspTime;
-                songPlayer.Play();
+                // 3초 뒤에 시작
+                dspTimeSong = (float)AudioSettings.dspTime + 3f;
+                songPlayer.PlayDelayed(3f);
                 return;
             }
         }
