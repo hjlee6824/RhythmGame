@@ -11,6 +11,7 @@ public class Conductor : MonoBehaviour
     Chart chart;
     Parser parser;
     Judgement judgement;
+    BGAPlayer bgaPlayer;
 
     public float startYPos;
     public float endYPos;
@@ -24,8 +25,8 @@ public class Conductor : MonoBehaviour
     // 한 박자에 소요되는 시간으로 (60f / BPM)과 동일
     public float secondsPerBeat;
 
-    // 특정 노래에는 시작 부분에 약간의 공백이 있기 때문에 노래 위치를 계산할 때 그 공백만큼 빼주어야 함
-    public float songOffset; // 0.17 내가 게임할 때 쓰는 오프셋
+    // 입력 오프셋
+    public float inputOffset;
 
     // 노래 재생이 시작된 시점을 저장하여 songPosition을 계산할 때 빼주어야 함
     public float dspTimeSong;
@@ -34,13 +35,20 @@ public class Conductor : MonoBehaviour
     public float beatsShownOnScreen;
 
     bool isSongStarted = false;
+    bool isBGAStarted = false;
+
+    float videoStartTime;
+    public float bgaOffset;
 
     void Start()
     {
         chart = FindObjectOfType<Chart>().GetComponent<Chart>();
         parser = FindObjectOfType<Parser>().GetComponent<Parser>();
         judgement = FindObjectOfType<Judgement>().GetComponent<Judgement>();
-        beatsShownOnScreen = 2f;
+        bgaPlayer = FindObjectOfType<BGAPlayer>().GetComponent<BGAPlayer>();
+        beatsShownOnScreen = 1.3f;
+        inputOffset = -0.15f;
+        bgaOffset = 1.6f;
         hitSound = hitSoundPlayer.clip;
     }
 
@@ -66,13 +74,24 @@ public class Conductor : MonoBehaviour
                 // 3초 뒤에 시작
                 dspTimeSong = (float)AudioSettings.dspTime + 3f;
                 songPlayer.PlayDelayed(3f);
+                videoStartTime = Time.time;
                 return;
+            }
+        }
+
+        if (!isBGAStarted)
+        {
+            if (Time.time - videoStartTime >= 3f + bgaOffset)
+            {
+                isBGAStarted = true;
+                bgaPlayer.PlayVideo();
             }
         }
 
         if (!isSongStarted) return;
 
-        songPosition = (float)(AudioSettings.dspTime - dspTimeSong) * songPlayer.pitch - songOffset;
+        // 특정 노래에는 시작 부분에 약간의 공백이 있기 때문에 노래 위치를 계산할 때 그 공백만큼 빼주어야 함
+        songPosition = (float)(AudioSettings.dspTime - dspTimeSong + chart.offset + inputOffset) * songPlayer.pitch;
 
         float noteToSpawn = songPosition / secondsPerBeat + beatsShownOnScreen;
 
