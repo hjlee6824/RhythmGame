@@ -31,6 +31,7 @@ public class ScoreManager : MonoBehaviour
         comboCount = 0;
         maxCombo = 0;
         accuracy = 0f;
+
         str = "";
 
         miss.text = str;

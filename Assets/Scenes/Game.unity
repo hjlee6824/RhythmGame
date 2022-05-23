@@ -437,9 +437,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0e7996a09b555a941ad2f557309fc644, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 214b348eba0d4b344890493935eecfcf, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2184,7 +2184,7 @@ MonoBehaviour:
   songBpm: 0
   songPosition: 0
   secondsPerBeat: 0
-  inputOffset: 0
+  globalOffset: 0
   dspTimeSong: 0
   beatsShownOnScreen: 0
   bgaOffset: 0
@@ -2454,7 +2454,7 @@ AudioSource:
   m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
-  Mute: 0
+  Mute: 1
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -3041,7 +3041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

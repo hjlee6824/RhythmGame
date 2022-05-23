@@ -8,9 +8,23 @@ public class Chart : MonoBehaviour
     public string artist { get; set; }
     public string title { get; set; }
     public float audioPreviewTime { get; set; }
-    public float bpm { get; set; }
     public float offset { get; set; }
     public string difficulty { get; set; }
+
+    // [TimingPoints]
+    public struct Timing
+    {
+        public float time;
+        public double bpm;
+
+        public Timing(float time, double bpm)
+        {
+            this.time = time;
+            this.bpm = bpm;
+        }
+    }
+
+    public List<Timing> timingList = new List<Timing>();
 
     // [HitObjects]
     public Queue<float> track1_TimingData = new Queue<float>();
@@ -38,12 +52,17 @@ public class Chart : MonoBehaviour
         }
     }
 
+    public void AddTimingPoint(float time, double bpm)
+    {
+        Timing t = new Timing(time, bpm);
+        timingList.Add(t);
+    }
+
     public void showChartInfo()
     {
         Debug.Log("Artist: " + artist);
         Debug.Log("Title: " + title);
         Debug.Log("AudioPreviewTime: " + audioPreviewTime);
-        Debug.Log("BPM: " + bpm);
         Debug.Log("Offset: " + offset);
         Debug.Log("Difficulty: " + difficulty);
     }

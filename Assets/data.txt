@@ -2,8 +2,9 @@
 Artist=
 Title=
 AudioPreviewTime=
-BPM=
 Offset=
 Difficulty=
+
+[TimingPoints]
 
 [HitObjects]

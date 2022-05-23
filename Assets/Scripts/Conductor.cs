@@ -26,7 +26,7 @@ public class Conductor : MonoBehaviour
     public float secondsPerBeat;
 
     // 입력 오프셋
-    public float inputOffset;
+    public float globalOffset;
 
     // 노래 재생이 시작된 시점을 저장하여 songPosition을 계산할 때 빼주어야 함
     public float dspTimeSong;
@@ -46,8 +46,8 @@ public class Conductor : MonoBehaviour
         parser = FindObjectOfType<Parser>().GetComponent<Parser>();
         judgement = FindObjectOfType<Judgement>().GetComponent<Judgement>();
         bgaPlayer = FindObjectOfType<BGAPlayer>().GetComponent<BGAPlayer>();
-        beatsShownOnScreen = 1.3f;
-        inputOffset = -0.15f;
+        beatsShownOnScreen = 1.5f;
+        globalOffset = -0.15f;
         bgaOffset = 1.6f;
         hitSound = hitSoundPlayer.clip;
     }
@@ -57,7 +57,7 @@ public class Conductor : MonoBehaviour
         // 차트 데이터 파싱이 다 될때까지 대기
         if (parser.isParsed)
         {
-            songBpm = chart.bpm * songPlayer.pitch;
+            songBpm = Mathf.Round((1f / (float)chart.timingList[0].bpm  * 1000f * 60f) * 100f) / 100f * songPlayer.pitch;
             secondsPerBeat = 60f / songBpm;
         }
         else
@@ -79,6 +79,8 @@ public class Conductor : MonoBehaviour
             }
         }
 
+        if (!isSongStarted) return;
+
         if (!isBGAStarted)
         {
             if (Time.time - videoStartTime >= 3f + bgaOffset)
@@ -88,10 +90,8 @@ public class Conductor : MonoBehaviour
             }
         }
 
-        if (!isSongStarted) return;
-
         // 특정 노래에는 시작 부분에 약간의 공백이 있기 때문에 노래 위치를 계산할 때 그 공백만큼 빼주어야 함
-        songPosition = (float)(AudioSettings.dspTime - dspTimeSong + chart.offset + inputOffset) * songPlayer.pitch;
+        songPosition = (float)(AudioSettings.dspTime - dspTimeSong + chart.offset + globalOffset) * songPlayer.pitch;
 
         float noteToSpawn = songPosition / secondsPerBeat + beatsShownOnScreen;
 
