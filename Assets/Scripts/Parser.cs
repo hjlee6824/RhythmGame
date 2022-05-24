@@ -7,13 +7,14 @@ public class Parser : MonoBehaviour
 {
     Chart chart;
 
-    public string path = "Assets/Resources/Songs/PLANET SHAPER/data.txt";
+    string path;
     public bool isParsed = false;
 
     void Awake()
     {
         chart = FindObjectOfType<Chart>().GetComponent<Chart>();
 
+        path = "Assets/Resources/Songs/Paradigm Shift/data.txt";
         ReadFile(path);
         chart.showChartInfo();
     }
@@ -111,7 +112,7 @@ public class Parser : MonoBehaviour
                         else if (trackNum == 320) trackNum = 3;
                         else trackNum = 4;
 
-                        chart.SetNote(trackNum, noteTime);
+                        chart.AddNoteTime(trackNum, noteTime);
                     }
                 }
             }

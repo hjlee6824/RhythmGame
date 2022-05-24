@@ -32,7 +32,7 @@ public class Chart : MonoBehaviour
     public Queue<float> track3_TimingData = new Queue<float>();
     public Queue<float> track4_TimingData = new Queue<float>();
 
-    public void SetNote(int trackNum, float noteTime)
+    public void AddNoteTime(int trackNum, float noteTime)
     {
         if (trackNum.Equals(1))
         {

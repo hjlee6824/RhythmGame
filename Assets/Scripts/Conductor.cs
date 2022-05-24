@@ -23,7 +23,7 @@ public class Conductor : MonoBehaviour
     public float songPosition;
 
     // 한 박자에 소요되는 시간으로 (60f / BPM)과 동일
-    public float secondsPerBeat;
+    // public float secondsPerBeat;
 
     // 입력 오프셋
     public float globalOffset;
@@ -47,7 +47,8 @@ public class Conductor : MonoBehaviour
         judgement = FindObjectOfType<Judgement>().GetComponent<Judgement>();
         bgaPlayer = FindObjectOfType<BGAPlayer>().GetComponent<BGAPlayer>();
         beatsShownOnScreen = 1.5f;
-        globalOffset = -0.15f;
+        globalOffset = 0f;
+        //globalOffset = -0.15f;
         bgaOffset = 1.6f;
         hitSound = hitSoundPlayer.clip;
     }
@@ -57,8 +58,9 @@ public class Conductor : MonoBehaviour
         // 차트 데이터 파싱이 다 될때까지 대기
         if (parser.isParsed)
         {
-            songBpm = Mathf.Round((1f / (float)chart.timingList[0].bpm  * 1000f * 60f) * 100f) / 100f * songPlayer.pitch;
-            secondsPerBeat = 60f / songBpm;
+            songBpm = (float)chart.timingList[0].bpm * songPlayer.pitch;
+            //songBpm = Mathf.Round((1f / (float)chart.timingList[0].bpm  * 1000f * 60f) * 100f) / 100f * songPlayer.pitch;
+            //secondsPerBeat = 60f / songBpm;
         }
         else
         {
@@ -93,11 +95,11 @@ public class Conductor : MonoBehaviour
         // 특정 노래에는 시작 부분에 약간의 공백이 있기 때문에 노래 위치를 계산할 때 그 공백만큼 빼주어야 함
         songPosition = (float)(AudioSettings.dspTime - dspTimeSong + chart.offset + globalOffset) * songPlayer.pitch;
 
-        float noteToSpawn = songPosition / secondsPerBeat + beatsShownOnScreen;
+        float noteToSpawn = songPosition * 1000 / songBpm + beatsShownOnScreen;
 
         if (chart.track1_TimingData.Count > 0)
         {
-            float nextTimeInTrack1 = chart.track1_TimingData.Peek() / 1000 / secondsPerBeat;
+            float nextTimeInTrack1 = chart.track1_TimingData.Peek() / songBpm;
 
             if (nextTimeInTrack1 < noteToSpawn)
             {
@@ -109,7 +111,7 @@ public class Conductor : MonoBehaviour
 
         if (chart.track2_TimingData.Count > 0)
         {
-            float nextTimeInTrack2 = chart.track2_TimingData.Peek() / 1000 / secondsPerBeat;
+            float nextTimeInTrack2 = chart.track2_TimingData.Peek() / songBpm;
 
             if (nextTimeInTrack2 < noteToSpawn)
             {
@@ -121,7 +123,7 @@ public class Conductor : MonoBehaviour
 
         if (chart.track3_TimingData.Count > 0)
         {
-            float nextTimeInTrack3 = chart.track3_TimingData.Peek() / 1000 / secondsPerBeat;
+            float nextTimeInTrack3 = chart.track3_TimingData.Peek() / songBpm;
 
             if (nextTimeInTrack3 < noteToSpawn)
             {
@@ -133,7 +135,7 @@ public class Conductor : MonoBehaviour
 
         if (chart.track4_TimingData.Count > 0)
         {
-            float nextTimeInTrack4 = chart.track4_TimingData.Peek() / 1000 / secondsPerBeat;
+            float nextTimeInTrack4 = chart.track4_TimingData.Peek() / songBpm;
 
             if (nextTimeInTrack4 < noteToSpawn)
             {

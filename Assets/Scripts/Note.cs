@@ -12,6 +12,8 @@ public class Note : MonoBehaviour
     // 판정선 위치
     public float judgementLinePos;
 
+    public int columnNum;
+
     // 판정선 아래로 내려간 노트의 파괴 위치
     // public float destroyPos = -6f;
 
@@ -50,9 +52,10 @@ public class Note : MonoBehaviour
 
         // 요약하면, 떨어지는 노트의 박자 값과 현재 노래 위치의 박자 값의 차가 beatsShownOnScreen일 때부터 노트가 생성되고
         // (노트의 박자 값 - 현재 노래 위치의 박자 값)이 0에 가까워 질수록 노트가 판정선에 가까워지게 됨
+
         transform.position = new Vector2(transform.position.x,
             spawnPos + (judgementLinePos - spawnPos) * 
-            (1f - (beat - conductor.songPosition / conductor.secondsPerBeat) / conductor.beatsShownOnScreen));
+            (1f - (beat - conductor.songPosition * 1000 / conductor.songBpm) / conductor.beatsShownOnScreen));
 
         /*if (transform.position.y <= destroyPos)
         {
