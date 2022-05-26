@@ -2453,7 +2453,7 @@ AudioSource:
   m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -3142,7 +3142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb0eb5c43479d514f9e1e7f27516553d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: Assets/Resources/Songs/PLANET SHAPER/data.txt
   isParsed: 0
 --- !u!4 &1926830170
 Transform:

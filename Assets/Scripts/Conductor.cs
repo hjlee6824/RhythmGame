@@ -46,9 +46,9 @@ public class Conductor : MonoBehaviour
         parser = FindObjectOfType<Parser>().GetComponent<Parser>();
         judgement = FindObjectOfType<Judgement>().GetComponent<Judgement>();
         bgaPlayer = FindObjectOfType<BGAPlayer>().GetComponent<BGAPlayer>();
-        beatsShownOnScreen = 1.5f;
-        globalOffset = 0f;
+        beatsShownOnScreen = 1.6f;
         //globalOffset = -0.15f;
+        globalOffset = 0f;
         bgaOffset = 1.6f;
         hitSound = hitSoundPlayer.clip;
     }
