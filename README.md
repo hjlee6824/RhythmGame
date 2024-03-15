@@ -1,6 +1,6 @@
 ## RhythmGame
  
-A rhythm game based on osu!mania
+Unity Rhythm Game Based On Osu!mania
 
 (Click Image To Redirect YouTube)
 
